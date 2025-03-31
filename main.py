@@ -52,7 +52,7 @@ if __name__ == "__main__":
     bot_name = config("TELEGRAM_BOT_NAME")
 
     news = (
-        pd.read_csv("news.csv")
+        pd.read_csv("data/news.csv")
         .rename(columns={"rubric": "true_label"})
         .dropna(subset="true_label")
     )
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     client.start()
     sample["ai_label"] = classify(texts)
     subset = ["text", "true_label", "ai_label"]
-    sample[subset].to_csv("sample.csv", index=False)
+    sample[subset].to_csv("data/sample.csv", index=False)
     client.stop()
 
     accuracy = (sample.ai_label == sample.true_label).mean()
